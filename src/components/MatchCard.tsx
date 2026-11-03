@@ -59,7 +59,6 @@ export default function MatchCard({ match }: { match: IMatch }) {
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: 16,
     marginBottom: 12,
     padding: 16,
     borderWidth: 1,
