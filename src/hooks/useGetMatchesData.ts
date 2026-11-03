@@ -7,6 +7,7 @@ export function useGetMatchesData() {
   const [matches, setMatches] = useState<IMatch[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState<string | null>(null);
+  const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
   const requestRef = useRef<AbortController | null>(null);
 
   const refetch = useCallback(async () => {
@@ -33,6 +34,7 @@ export function useGetMatchesData() {
 
       if (!controller.signal.aborted) {
         setMatches(data.matches);
+        setUpdatedAt(new Date());
       }
     } catch (error) {
       if (!controller.signal.aborted) {
@@ -56,5 +58,5 @@ export function useGetMatchesData() {
     };
   }, [refetch]);
 
-  return { matches, isLoading, isError, refetch };
+  return { matches, isLoading, isError, refetch, updatedAt };
 }
