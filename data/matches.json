@@ -38,7 +38,11 @@
       "id": "m5",
       "startsAt": "2026-10-18T11:30:00Z",
       "status": "scheduled",
-      "home": { "id": "pari-nn", "name": "Пари Нижний Новгород", "city": "Нижний Новгород" },
+      "home": {
+        "id": "pari-nn",
+        "name": "Пари Нижний Новгород",
+        "city": "Нижний Новгород"
+      },
       "away": { "id": "akron", "name": "Акрон", "city": "Тольятти" },
       "score": null
     },
@@ -63,7 +67,11 @@
       "startsAt": "2026-10-19T16:30:00Z",
       "status": "scheduled",
       "home": { "id": "orenburg", "name": "Оренбург", "city": "Оренбург" },
-      "away": { "id": "dynamo-mkh", "name": "Динамо Махачкала", "city": "Махачкала" },
+      "away": {
+        "id": "dynamo-mkh",
+        "name": "Динамо Махачкала",
+        "city": "Махачкала"
+      },
       "score": null
     }
   ]
