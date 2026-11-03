@@ -1,8 +1,19 @@
 import { StyleSheet, Text, View } from "react-native";
 import { MATCH_STATUS_TRANSLATE } from "../types/Matches";
 import type { IMatch } from "../types/Matches";
+import { FavoriteButton } from "./FavoriteButton";
 
-export default function MatchCard({ match }: { match: IMatch }) {
+type Props = {
+  match: IMatch;
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
+};
+
+export default function MatchCard({
+  match,
+  isFavorite,
+  onToggleFavorite,
+}: Props) {
   const isLive = match.status === "live";
   const startsAt = match.startsAt ? new Date(match.startsAt) : null;
   const dateLabel =
@@ -24,6 +35,8 @@ export default function MatchCard({ match }: { match: IMatch }) {
             {isLive && match.minute != null ? ` · ${match.minute}′` : ""}
           </Text>
         </View>
+
+        <FavoriteButton active={isFavorite} onPress={onToggleFavorite} />
       </View>
 
       <View style={styles.teams}>
@@ -66,7 +79,12 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: "#ffffff",
   },
-  header: { flexDirection: "row", marginBottom: 20 },
+  header: {
+    flexDirection: "row",
+    marginBottom: 20,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   badge: {
     backgroundColor: "#f3f4f6",
     paddingHorizontal: 10,

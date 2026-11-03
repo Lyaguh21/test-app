@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useGetMatchesData } from "../hooks/useGetMatchesData";
+import { useFavorites } from "../hooks/useFavorites";
 import MatchCard from "../components/MatchCard";
 import MatchesFilters from "../components/MatchesFilters";
 import type { MatchesFilter } from "../components/MatchesFilters";
@@ -10,6 +11,7 @@ export function MatchesScreen() {
   const { matches, isLoading, isError, refetch, updatedAt } =
     useGetMatchesData();
   const [filter, setFilter] = useState<MatchesFilter>("all");
+  const { isFavorite, toggle } = useFavorites();
   const filteredMatches = matches.filter(
     (match) => filter === "all" || match.status === filter,
   );
@@ -32,7 +34,12 @@ export function MatchesScreen() {
           !isError &&
           (filteredMatches.length > 0 ? (
             filteredMatches.map((match) => (
-              <MatchCard key={match.id} match={match} />
+              <MatchCard
+                key={match.id}
+                match={match}
+                isFavorite={isFavorite(match.id)}
+                onToggleFavorite={() => toggle(match.id)}
+              />
             ))
           ) : (
             <Text style={styles.info}>Матчей нет</Text>
