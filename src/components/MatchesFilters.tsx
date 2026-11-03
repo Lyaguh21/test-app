@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { UpdatedAgo } from "./UpdatedAgo";
 
 export type MatchesFilter = "all" | "scheduled" | "finished";
@@ -12,6 +12,8 @@ const filters: { value: MatchesFilter; label: string }[] = [
 type Props = {
   value: MatchesFilter;
   onChange: (value: MatchesFilter) => void;
+  search: string;
+  onSearchChange: (value: string) => void;
   onRefresh: () => void;
   isLoading: boolean;
   updatedAt: Date | null;
@@ -20,6 +22,8 @@ type Props = {
 export default function MatchesFilters({
   value,
   onChange,
+  search,
+  onSearchChange,
   onRefresh,
   isLoading,
   updatedAt,
@@ -27,6 +31,16 @@ export default function MatchesFilters({
   return (
     <View style={styles.container}>
       <View style={styles.filters}>
+        <TextInput
+          value={search}
+          onChangeText={onSearchChange}
+          placeholder="Поиск по клубу"
+          accessibilityLabel="Поиск по названию клуба"
+          autoCapitalize="none"
+          autoCorrect={false}
+          style={styles.search}
+        />
+
         {filters.map((filter) => (
           <Pressable
             key={filter.value}
@@ -83,6 +97,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   filters: { flexDirection: "row", flexWrap: "wrap", gap: 6 },
+  search: {
+    minHeight: 44,
+    width: 190,
+    maxWidth: "100%",
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    borderRadius: 10,
+    fontSize: 13,
+    color: "#111827",
+    backgroundColor: "#ffffff",
+  },
   button: {
     minHeight: 44,
     justifyContent: "center",

@@ -11,10 +11,16 @@ export function MatchesScreen() {
   const { matches, isLoading, isError, refetch, updatedAt } =
     useGetMatchesData();
   const [filter, setFilter] = useState<MatchesFilter>("all");
+  const [search, setSearch] = useState("");
+  const searchPrefix = search.trim().toLowerCase();
   const { isFavorite, toggle } = useFavorites();
-  const filteredMatches = matches.filter(
-    (match) => filter === "all" || match.status === filter,
-  );
+  const filteredMatches = matches
+    .filter((match) => filter === "all" || match.status === filter)
+    .filter(
+      (match) =>
+        match.home.name.toLowerCase().startsWith(searchPrefix) ||
+        match.away.name.toLowerCase().startsWith(searchPrefix),
+    );
 
   return (
     <ScrollView>
@@ -23,6 +29,8 @@ export function MatchesScreen() {
         <MatchesFilters
           value={filter}
           onChange={setFilter}
+          search={search}
+          onSearchChange={setSearch}
           onRefresh={() => void refetch()}
           isLoading={isLoading}
           updatedAt={updatedAt}
